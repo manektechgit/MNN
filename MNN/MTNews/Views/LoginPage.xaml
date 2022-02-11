@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:local="clr-namespace:MTNews.CustomControls"
+             x:Class="MTNews.Views.LoginPage">
+    <ContentPage.Content>
+        <Grid Style="{StaticResource GridStyle}" BackgroundColor="{StaticResource BlackColor}" Padding="0,0,0,15">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Image Grid.Row="1" Source="logo" Style="{StaticResource ImageStyle}" HeightRequest="120" WidthRequest="120" />
+            <Frame Grid.Row="2" Style="{StaticResource FrameStyle}" IsClippedToBounds="True" BackgroundColor="{StaticResource WhiteColor}" Margin="15,50,15,15">
+                <Grid Style="{StaticResource GridStyle}" RowSpacing="20" IsClippedToBounds="True">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Frame Grid.Row="0" BorderColor="{StaticResource GrayColor}" Style="{StaticResource FrameStyle}" Padding="5" Margin="15,20,15,0">
+                        <Grid Style="{StaticResource GridStyle}" Padding="0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.Column="0" Source="email" Style="{StaticResource ImageStyle}" HeightRequest="20" WidthRequest="20" Margin="7,0"/>
+                            <local:CustomEntry Grid.Column="1" Text="{Binding Email}" Placeholder="Email" Style="{StaticResource EntryStyle}"/>
+                        </Grid>
+                    </Frame>
+                    <Frame Grid.Row="1" BorderColor="{StaticResource GrayColor}" Style="{StaticResource FrameStyle}" Padding="5" Margin="15,0">
+                        <Grid Style="{StaticResource GridStyle}" Padding="0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.Column="0" Source="password" Style="{StaticResource ImageStyle}" HeightRequest="20" WidthRequest="20" Margin="7,0"/>
+                            <local:CustomEntry Grid.Column="1" Text="{Binding Password}" Placeholder="Password" IsPassword="{Binding IsPassword}" Style="{StaticResource EntryStyle}"/>
+                            <Grid Grid.Column="2" Style="{StaticResource GridStyle}" Padding="5">
+                                <Image Source="hideEye" Style="{StaticResource ImageStyle}" HeightRequest="20" WidthRequest="20">
+                                    <Image.Triggers>
+                                        <DataTrigger TargetType="Image" Binding="{Binding IsPassword}" Value="true">
+                                            <Setter Property="Source" Value="hideEye" />
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Image" Binding="{Binding IsPassword}" Value="false">
+                                            <Setter Property="Source" Value="viewEye" />
+                                        </DataTrigger>
+                                    </Image.Triggers>
+                                </Image>
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding IsPasswordCommand}" />
+                                </Grid.GestureRecognizers>
+                            </Grid>
+                        </Grid>
+                    </Frame>
+                    <Frame Grid.Row="2" Padding="20" CornerRadius="0" IsClippedToBounds="True" BackgroundColor="{StaticResource PrimaryColor}" Style="{StaticResource FrameStyle}">
+                        <Label Text="LOGIN" TextColor="{StaticResource WhiteColor}" FontSize="{StaticResource Medium}" HorizontalTextAlignment="Center" HorizontalOptions="Center"/>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding LoginCommand}" />
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                </Grid>
+            </Frame>
+            <Label Grid.Row="4" Text="www.manektech.com" TextColor="{StaticResource WhiteColor}" FontSize="{StaticResource Medium}" HorizontalTextAlignment="Center" HorizontalOptions="Center"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

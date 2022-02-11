@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:MTNews.CustomControls"
+             x:Class="MTNews.CustomViews.HeaderView">
+  <ContentView.Content>
+        <Grid HeightRequest="65" Style="{StaticResource GridStyle}" BackgroundColor="{StaticResource PrimaryColor}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" IsVisible="{Binding IsSearchedText,Converter={StaticResource cnvInverseBoolConverter}}" Style="{StaticResource GridStyle}" BackgroundColor="{StaticResource PrimaryColor}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Grid.ColumnSpan="4" Text="{Binding PageName}" TextColor="{StaticResource WhiteColor}" FontSize="{StaticResource Large}" HorizontalTextAlignment="Center" HorizontalOptions="Center" VerticalOptions="Center" VerticalTextAlignment="Center"/>
+                <Grid Grid.Column="0" Style="{StaticResource GridStyle}" Padding="7,15" BackgroundColor="Transparent">
+                    <Image Source="slider" Style="{StaticResource ImageStyle}" HeightRequest="30" WidthRequest="30"/>
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding MenuCommand}" />
+                    </Grid.GestureRecognizers>
+                </Grid>
+                <Grid Grid.Column="2" IsVisible="{Binding IsSearch}" Style="{StaticResource GridStyle}" Padding="7,15,15,15" BackgroundColor="Transparent">
+                    <Image Source="search" Style="{StaticResource ImageStyle}" HeightRequest="25" WidthRequest="25"/>
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SearchCommand}" />
+                    </Grid.GestureRecognizers>
+                </Grid>
+                <!--<Grid Grid.Column="3" IsVisible="{Binding IsMenu}" Style="{StaticResource GridStyle}" Padding="7,15" BackgroundColor="Transparent">
+                    <Image Source="menu" Style="{StaticResource ImageStyle}" HeightRequest="30" WidthRequest="30"/>
+                </Grid>-->
+            </Grid>
+            <Grid Grid.Row="0" IsVisible="{Binding IsSearchedText}" Style="{StaticResource GridStyle}" BackgroundColor="{StaticResource PrimaryColor}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0" Style="{StaticResource GridStyle}" Padding="7,15" BackgroundColor="Transparent">
+                    <Image Source="back" Style="{StaticResource ImageStyle}" HeightRequest="30" WidthRequest="30"/>
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SearchCommand}" />
+                    </Grid.GestureRecognizers>
+                </Grid>
+                <Grid Grid.Column="1" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Padding="5,8">
+                    <Frame BorderColor="Transparent" CornerRadius="10" VerticalOptions="Center" BackgroundColor="{StaticResource WhiteColor}" Style="{StaticResource FrameStyle}" Padding="10,5" Margin="0">
+                        <local:CustomEntry x:Name="searchEntry" Text="{Binding SearchText}" Placeholder="Search here" 
+                                           Style="{StaticResource EntryStyle}" Completed="CustomEntry_Completed"/>
+                    </Frame>
+                </Grid>
+                <Grid Grid.Column="2" IsVisible="{Binding IsSearch}" Style="{StaticResource GridStyle}" Padding="7,15,15,15" BackgroundColor="Transparent">
+                    <Image Source="search" Style="{StaticResource ImageStyle}" HeightRequest="25" WidthRequest="25"/>
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SearchTapCommand}" />
+                    </Grid.GestureRecognizers>
+                </Grid>
+            </Grid>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:MTNews.CustomControls"
+             xmlns:Pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             x:Class="MTNews.Views.EditPopupPage">
+    <Pages:PopupPage.Content>
+        <Frame Style="{StaticResource FrameStyle}" Margin="30,100" IsClippedToBounds="True" VerticalOptions="Center" BackgroundColor="{StaticResource WhiteColor}" CornerRadius="10">
+            <Grid HorizontalOptions="FillAndExpand" VerticalOptions="Center" IsClippedToBounds="True" RowSpacing="15" BackgroundColor="{StaticResource WhiteColor}" Padding="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Style="{StaticResource GridStyle}" BackgroundColor="{StaticResource PrimaryColor}">
+                    <Label Text="Update Comment" HorizontalOptions="Center" VerticalOptions="Center" TextColor="{StaticResource WhiteColor}" FontAttributes="Bold" FontSize="{StaticResource Medium}" Margin="0"/>
+                </Grid>
+                <Frame Grid.Row="1" BorderColor="Gray" Style="{StaticResource FrameStyle}" Padding="5,0" Margin="15,0">
+                    <local:CustomEditor Text="{Binding UpdatedComment}" Placeholder="Comment" Style="{StaticResource EntryStyle}" HeightRequest="80"/>
+                </Frame>
+                <Grid Grid.Row="2" Style="{StaticResource GridStyle}" ColumnSpacing="15" Padding="15,0,15,15">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Frame Grid.Column="0" Padding="5,7" Margin="0" BackgroundColor="{StaticResource GrayColor}" HasShadow="False">
+                        <Label Text="Cancel" HorizontalOptions="Center" TextColor="{StaticResource BlackColor}" FontAttributes="Bold" FontSize="{StaticResource Small}" Margin="0"/>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding CancelCommand}" />
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                    <Frame Grid.Column="1" Padding="5,7" Margin="0" BackgroundColor="{StaticResource PrimaryColor}" HasShadow="False">
+                        <Label Text="Update" HorizontalOptions="Center" TextColor="{StaticResource WhiteColor}" FontAttributes="Bold" FontSize="{StaticResource Small}" Margin="0"/>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding UpdateCommand}" />
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                </Grid>
+            </Grid>
+        </Frame>
+    </Pages:PopupPage.Content>
+</Pages:PopupPage>

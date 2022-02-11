@@ -1,0 +1,35 @@
+image : microsoft/dotnet:latest
+
+stages:
+  - build
+  - test
+  - package
+  - deploy
+
+build:
+  stage: build
+  script:
+    - dotnet build -c Release
+  only:
+    - master
+
+test:
+  stage: test
+  script:
+    - dotnet test -c Release
+  only:
+    - master
+
+package:
+  stage: package
+  script:
+    - dotnet publish -c Release
+  only:
+    - master
+    
+deploy:
+  stage: deploy
+  script:
+    - echo "Deploy to production"
+  only:
+    - master

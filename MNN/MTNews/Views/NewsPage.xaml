@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:MTNews.CustomViews"
+             x:Name="NewsPg"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             ios:Page.UseSafeArea="True"
+             xmlns:controls="clr-namespace:MTNews.CustomControls"
+             x:Class="MTNews.Views.NewsPage">
+    <ContentPage.Content>
+        <Grid Style="{StaticResource GridStyle}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" HeightRequest="65" Style="{StaticResource GridStyle}" BackgroundColor="{StaticResource PrimaryColor}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" IsVisible="{Binding IsSearchedText,Converter={StaticResource cnvInverseBoolConverter}}" Style="{StaticResource GridStyle}" BackgroundColor="{StaticResource PrimaryColor}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Grid.ColumnSpan="4" Text="{Binding PageName}" TextColor="{StaticResource WhiteColor}" FontSize="{StaticResource Large}" HorizontalTextAlignment="Center" HorizontalOptions="Center" VerticalOptions="Center" VerticalTextAlignment="Center"/>
+                    <Grid Grid.Column="0" Style="{StaticResource GridStyle}" Padding="7,15" BackgroundColor="Transparent">
+                        <Image Source="slider" Style="{StaticResource ImageStyle}" HeightRequest="30" WidthRequest="30"/>
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding MenuCommand}" />
+                        </Grid.GestureRecognizers>
+                    </Grid>
+                    <Grid Grid.Column="2" IsVisible="{Binding IsSearch}" Style="{StaticResource GridStyle}" Padding="7,15,15,15" BackgroundColor="Transparent">
+                        <Image Source="search" Style="{StaticResource ImageStyle}" HeightRequest="25" WidthRequest="25"/>
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SearchCommand}" />
+                        </Grid.GestureRecognizers>
+                    </Grid>
+                </Grid>
+                <Grid Grid.Row="0" IsVisible="{Binding IsSearchedText}" Style="{StaticResource GridStyle}" BackgroundColor="{StaticResource PrimaryColor}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0" Style="{StaticResource GridStyle}" Padding="7,15" BackgroundColor="Transparent">
+                        <Image Source="back" Style="{StaticResource ImageStyle}" HeightRequest="30" WidthRequest="30"/>
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SearchCommand}" />
+                        </Grid.GestureRecognizers>
+                    </Grid>
+                    <Grid Grid.Column="1" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Padding="5,8">
+                        <Frame BorderColor="Transparent" CornerRadius="10" VerticalOptions="Center" BackgroundColor="{StaticResource WhiteColor}" 
+                               Style="{StaticResource FrameStyle}" Padding="10,0" Margin="0">
+                            <Grid ColumnDefinitions="*,Auto">
+                                <controls:CustomEntry Grid.Column="0" x:FieldModifier="Public" x:Name="searchEntry" Text="{Binding SearchText}" Placeholder="Search here" 
+                                           Style="{StaticResource EntryStyle}" Completed="CustomEntry_Completed" Margin="10"/>
+                                <Grid Grid.Column="1" IsVisible="{Binding CancelVisible}" Style="{StaticResource GridStyle}" Padding="7,12" BackgroundColor="Transparent">
+                                    <Image Source="clear" Style="{StaticResource ImageStyle}" Aspect="AspectFit" HeightRequest="15" WidthRequest="15"/>
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding ResetCommand}" />
+                                    </Grid.GestureRecognizers>
+                                </Grid>
+                            </Grid>
+                        </Frame>
+                    </Grid>
+                    <Grid Grid.Column="2" IsVisible="{Binding IsSearch}" Style="{StaticResource GridStyle}" Padding="7,15,15,15" BackgroundColor="Transparent">
+                        <Image Source="search" Style="{StaticResource ImageStyle}" HeightRequest="25" WidthRequest="25"/>
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SearchTapCommand}" />
+                        </Grid.GestureRecognizers>
+                    </Grid>
+                </Grid>
+            </Grid>
+            <CollectionView Grid.Row="1" ItemsSource="{Binding NewsFeeds,Mode=TwoWay}" Margin="10"
+                            EmptyView="No data found" BackgroundColor="{StaticResource WhiteColor}" 
+                            RemainingItemsThresholdReachedCommand="{Binding NextNewsCommand}"
+                            RemainingItemsThreshold="{Binding ItemThreshold}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Style="{StaticResource GridStyle}" Padding="7,5">
+                            <Frame CornerRadius="10" Style="{StaticResource FrameStyle}" IsClippedToBounds="True">
+                                <Grid Style="{StaticResource GridStyle}">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Image Grid.Row="0" Grid.RowSpan="3" HeightRequest="200" Aspect="Fill" Source="{Binding NewsPic,Mode=TwoWay}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+                                    <Grid Grid.Row="0" Grid.RowSpan="3" Style="{StaticResource GridStyle}">
+                                        <Grid.Background>
+                                            <LinearGradientBrush StartPoint="0,1" EndPoint="0,0">
+                                                <GradientStop Color="#90000000" Offset="0.1"/>
+                                                <GradientStop Color="Transparent" Offset="1.0"/>
+                                            </LinearGradientBrush>
+                                        </Grid.Background>
+                                    </Grid>
+                                    <Label Grid.Row="1" Text="{Binding title}" TextColor="{StaticResource WhiteColor}" MaxLines="2" FontSize="{StaticResource Medium}" Margin="15,0" />
+                                    <Label Grid.Row="2" Text="{Binding createdDate,StringFormat='Posted on {0:dd MMM, yyyy}'}" MaxLines="1" TextColor="{StaticResource WhiteColor}" FontSize="{StaticResource Micro}" Margin="15,0,15,15" />
+                                </Grid>
+                            </Frame>
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Path=BindingContext.NewsSelectCommand,Source={x:Reference NewsPg}}" CommandParameter="{Binding .}" />
+                            </Grid.GestureRecognizers>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                <CollectionView.Footer>
+                    <ActivityIndicator IsVisible="{Binding IsBusy}" IsEnabled="{Binding IsBusy}" IsRunning="{Binding IsBusy}" />
+                </CollectionView.Footer>
+            </CollectionView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
